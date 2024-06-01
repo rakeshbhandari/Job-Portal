@@ -15,7 +15,7 @@ class JobController extends Controller
         //get all jobs with their employers and order them by the latest created with pagination
         $jobs = Job::with('employer')->latest()->paginate(10);
 
-        //return the view with the jobs data 
+        //return the view with the jobs data
         return view(
             'jobs.index',
             ['jobs' => $jobs]
@@ -60,7 +60,7 @@ class JobController extends Controller
     {
         //find the job by id
         // NOTE: we can use the $job variable directly because of the route model binding
-        // $job = Job::find($id); 
+        // $job = Job::find($id);
         //return the view with the job
         return view('jobs.show', ['job' => $job]);
     }
@@ -107,7 +107,7 @@ class JobController extends Controller
         // $job = Job::findOrFail($id);
         $job->delete();
 
-        //redirect 
+        //redirect
         return redirect('/jobs');
     }
 }

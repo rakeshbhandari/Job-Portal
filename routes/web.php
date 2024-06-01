@@ -1,16 +1,19 @@
 <?php
 
-use App\Http\Controllers\JobController;
 use App\Models\Job;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\JobController;
+use Illuminate\Support\Facades\Request;
+use App\Http\Controllers\SessionController;
+use App\Http\Controllers\RegisterController;
+
 
 //home page
 // Route::get('/', function () {
 
 //     return view('home');
 // });
-// Route::view does the same thing as the above code 
+// Route::view does the same thing as the above code
 // only applicable for static pages
 Route::view('/', 'home');
 
@@ -30,3 +33,16 @@ Route::view('/contact', 'contact');
 // });
 // NOTE: route resource for JobController which does the same thing as the above code
 Route::resource('jobs', JobController::class);
+
+
+
+
+//Auth routes
+
+Route::get('/register', [RegisterController::class, 'create']);
+Route::post('/register', [RegisterController::class, 'store']);
+
+
+Route::get('/login', [SessionController::class, 'create']);
+Route::post('/login', [SessionController::class, 'store']);
+Route::post('/logout', [SessionController::class, 'destroy']);
