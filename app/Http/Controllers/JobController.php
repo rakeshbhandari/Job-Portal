@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\JobPosted;
 use App\Models\Job;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Gate as FacadesGate;
+use Illuminate\Support\Facades\Mail;
 
 class JobController extends Controller
 {
@@ -48,12 +50,17 @@ class JobController extends Controller
         ]);
 
         //store
-        Job::create([
+        $job =  Job::create([
             'title' => request('title'),
             'description' => request('description'),
             'salary' => request('salary'),
             'employer_id' => 1,
         ]);
+
+        //send mail after job is posted
+        Mail::to($job->employer->user)
+            ->send(new JobPosted($job));
+
         //redirect
         return redirect('/jobs');
     }
@@ -67,7 +74,10 @@ class JobController extends Controller
         // NOTE: we can use the $job variable directly because of the route model binding
         // $job = Job::find($id);
         //return the view with the job
-        return view('jobs.show', ['job' => $job]);
+        return view(
+            'jobs.show',
+            ['job' => $job]
+        );
     }
 
     /**
