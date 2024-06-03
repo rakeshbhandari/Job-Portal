@@ -1,11 +1,8 @@
 <x-layout>
-
     <!-- named slot for title  -->
     <x-slot:heading>
         Login
     </x-slot:heading>
-
-
 
     <form method="POST"
           action="/login">
@@ -15,8 +12,6 @@
 
                 <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
-
-
                     <x-form-field class="sm:col-span-4">
                         <x-form-label for="email">Email</x-form-label>
                         <div class="mt-2">
@@ -24,7 +19,10 @@
                                           name="email"
                                           type="email"
                                           placeholder="Austinlilboy@gmail.com"
-                                          required>
+                                          required
+                                          :value="old('email')">
+                                <!-- :colon treats the above as expression  -->
+
                             </x-form-input>
                             <x-form-error name="email" />
                         </div>
@@ -41,17 +39,7 @@
                             <x-form-error name="password" />
                         </div>
                     </x-form-field>
-
-
-
-
-
-
-
-
                 </div>
-
-
             </div>
         </div>
         <div class="mt-6 flex items-center justify-end gap-x-6">
@@ -60,6 +48,4 @@
                 <x-form-button>Register</x-form-button>
         </div>
     </form>
-
-
 </x-layout>
